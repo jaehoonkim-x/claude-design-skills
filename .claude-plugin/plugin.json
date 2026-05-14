@@ -1,0 +1,12 @@
+{
+  "name": "claude-design-skills",
+  "description": "디자인 정적 분석 리뷰 10종 + Pencil/Figma 어노테이션 부착 1종. UX/UI rubric 기반 한국어 마크다운 리뷰 + 캔버스에 코멘트 패널·번호 마커·After mockup 자동 부착.",
+  "version": "1.0.0",
+  "author": {
+    "name": "jaehoonkim-x"
+  },
+  "homepage": "https://github.com/jaehoonkim-x/claude-design-skills",
+  "repository": "https://github.com/jaehoonkim-x/claude-design-skills",
+  "license": "MIT",
+  "skills": "./skills/"
+}

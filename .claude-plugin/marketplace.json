@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "claude-design-skills",
+  "description": "디자인 정적 분석 리뷰 + 어노테이션 스킬 모음 (Pencil .pen / Figma URL)",
+  "owner": {
+    "name": "jaehoonkim-x"
+  },
+  "plugins": [
+    {
+      "name": "claude-design-skills",
+      "description": "10 design review rubrics (Laws of UX·Nielsen·IxDF·Baymard ecommerce·Polish·Critic) + annotate-design (Pencil/Figma 캔버스에 코멘트 패널·번호 마커·After mockup 부착)",
+      "version": "1.0.0",
+      "source": "./"
+    }
+  ],
+  "version": "1.0.0"
+}

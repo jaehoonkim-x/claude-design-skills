@@ -8,10 +8,10 @@
   "plugins": [
     {
       "name": "claude-design-skills",
-      "description": "10 design review rubrics (Laws of UX·Nielsen·IxDF·Baymard ecommerce·Polish·Critic) + annotate-design (Pencil/Figma 캔버스에 코멘트 패널·번호 마커·After mockup 부착)",
-      "version": "1.0.0",
+      "description": "12 design review rubrics (UI 6 / UX 5 / CEO 1: Laws of UX·Nielsen·IxDF·Baymard·Polish·Critic·UX Flow·CEO Strategy) + design-review-all wrapper (11 rubric 병렬 dispatch + L0~L5 집계) + annotate-design (Pencil/Figma 캔버스에 코멘트 패널·번호 마커·After mockup 부착)",
+      "version": "1.2.0",
       "source": "./"
     }
   ],
-  "version": "1.0.0"
+  "version": "1.2.0"
 }

@@ -41,8 +41,8 @@ Claude Code 디자인 리뷰 + 어노테이션 스킬 모음. **Pencil(.pen)** �
 | `design-ui-nielsen-review` | Aesthetic & Minimalist 시각 휴리스틱 | Jakob Nielsen |
 | `design-ui-ixdf-review` | 5항목 (Desirable + Engagement + 3 Interaction Dim) | IxDF |
 | `design-ui-ecommerce-review` | 3 카테고리 (Product Card / PDP / Homepage·PLP visual) | Baymard Institute |
-| `design-ui-polish-review` | 10 시각 디자인 차원 (Hierarchy·Typography·Color·Spacing 등) | 자체 |
-| `design-ui-critic-review` | 디자이너 비평 관점 (AI slop 판별 포함) | 자체 |
+| `design-ui-polish-review` | 10 시각 디자인 차원 (Hierarchy·Typography·Color·Spacing 등) | gstack `/ui-design-review` 기반 |
+| `design-ui-critic-review` | 디자이너 비평 관점 (AI slop 판별 포함) | gstack `/design-review` 기반 |
 
 ### L1 Skeleton — UX 4종
 
@@ -57,13 +57,13 @@ Claude Code 디자인 리뷰 + 어노테이션 스킬 모음. **Pencil(.pen)** �
 
 | Skill | Rubric | 출처 |
 |---|---|---|
-| `design-ux-flow-review` | 6 Lens × 36 항목 (Flow / IA / Edge State / Dark Pattern / Conversion / Habit) | 자체 |
+| `design-ux-flow-review` | 6 Lens × 36 항목 (Flow / IA / Edge State / Dark Pattern / Conversion / Habit) | NN/g·Norman·Brignull·Hooked 등 |
 
 ### L5 Strategy — CEO 1종
 
 | Skill | Rubric | 출처 |
 |---|---|---|
-| `design-ceo-review` | CEO/founder 10 전략 항목 (Premise·Leverage·Dream·KPI·Scope·자산 등) | 자체 |
+| `design-ceo-review` | CEO/founder 10 전략 항목 (Premise·Leverage·Dream·KPI·Scope·자산 등) | gstack `/plan-ceo-review` 기반 |
 
 ## 멀티 레벨 wrapper (1)
 

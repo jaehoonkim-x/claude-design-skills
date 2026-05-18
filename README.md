@@ -90,6 +90,14 @@ Claude Code 디자인 리뷰 + 어노테이션 스킬 모음. **Pencil(.pen)** �
 
 ### `annotate-design`
 
+#### 예시 (Pencil)
+
+`design-review-all` 집계 .md → `annotate-design` 으로 부착한 결과. 좌측 Dashboard 프레임, 우측 통합 코멘트 패널 (37 카드, HIGH 15·MID 12·LOW 10, SourceRail chip + After 시각 mockup).
+
+| 대상 프레임 | 캔버스 옆 통합 코멘트 패널 |
+|---|---|
+| ![Dashboard](docs/images/dashboard-frame.png) | ![Comment Panel](docs/images/comment-panel.png) |
+
 리뷰 .md → 디자인 캔버스 **옆** 에 시각화 (캔버스 위 핀·네이티브 코멘트 부착 안 함). 생성물 2종:
 
 1. **코멘트 패널** — 캔버스 우측 finding 카드 컬럼 (severity 색·점수·근거·fix·참고 링크)

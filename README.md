@@ -8,7 +8,7 @@ Claude Code 디자인 리뷰 + 어노테이션 스킬 모음. **Pencil(.pen)** �
 |---|---|---|
 | 디자인 리뷰 (정적 분석) | 12 | 프레임을 rubric 기반으로 분석 → 한국어 마크다운 리뷰 보고서 생성 (UI 6 / UX 5 / CEO 1) |
 | 멀티 레벨 wrapper | 1 | 11개 rubric 병렬 dispatch → L0 Surface·L1 Skeleton·L2 Structure·L5 Strategy 동시 집계 |
-| 어노테이션 | 1 | 리뷰 .md → 캔버스에 코멘트 패널 + 번호 마커 + After mockup 자동 부착 |
+| 어노테이션 | 1 | 리뷰 .md (개별/집계) → 캔버스 옆 코멘트 패널 + After 시각 mockup 자동 부착 |
 
 ## 설치
 
@@ -28,7 +28,12 @@ Claude Code 디자인 리뷰 + 어노테이션 스킬 모음. **Pencil(.pen)** �
 
 2. 캔버스에 부착
    /annotate-design ./reviews/nielsen-output.md
-   → Pencil/Figma 캔버스에 코멘트 패널 + 마커 + mockup 부착
+   → Pencil/Figma 캔버스 옆에 코멘트 패널 + After 시각 mockup 부착
+
+3. (선택) 멀티 레벨 일괄
+   /design-review-all <design 파일>
+   /annotate-design ./design-reviews/design-review-all-*.md
+   → 11개 rubric 집계 finding 을 dedupe + SourceRail chip 으로 시각화
 ```
 
 ## 리뷰 스킬 (12)
@@ -85,13 +90,19 @@ Claude Code 디자인 리뷰 + 어노테이션 스킬 모음. **Pencil(.pen)** �
 
 ### `annotate-design`
 
-리뷰 .md → 디자인 캔버스에 시각화. 생성물 3종:
+리뷰 .md → 디자인 캔버스 **옆** 에 시각화 (캔버스 위 핀·네이티브 코멘트 부착 안 함). 생성물 2종:
 
-1. **코멘트 패널** — finding 카드 컬럼 (severity 색·점수·근거·fix·참고 링크)
-2. **번호 마커** — 노드 위치에 핀처럼 떠 있는 원형 배지 (Pencil 한정. Figma 는 네이티브 코멘트 핀이 마커 역할)
-3. **After 예시 mockup** — 각 카드 안에 fix 적용 후 모습 (Fitts·Selective Attention·Cognitive Bias 등 패턴별 카탈로그)
+1. **코멘트 패널** — 캔버스 우측 finding 카드 컬럼 (severity 색·점수·근거·fix·참고 링크)
+2. **After 시각 mockup** — 각 카드 안에 fix 적용 후 모습. **Iron Rule**: 텍스트 2줄 폴백 금지, 항상 시각 요소 1개 이상. 32 패턴 카탈로그 (Empty/Loading·CTA·Search scope·Status pill·Table 효율·Notification·WCAG·Token contract·도메인 KPI·Sparkline·Chart context·Sidebar IA·Touch target·Card elevation·Avatar·Tabular nums·Responsive·Brand swap·Fitts·Von Restorff·Cognitive Bias 등).
 
-session-key 기반 ID 추적 (`{rubric}-{HHmm}.c{N}`, `.m{M}`) — 같은 캔버스에 여러 리뷰 누적해도 카드↔마커 양방향 탐색 가능.
+#### 입력 모드 자동 감지
+
+| 모드 | 트리거 | 카드 |
+|---|---|---|
+| 개별 | `### 법칙명 — score: N` 패턴 .md | severity·점수·evidence·fix·link + After mockup |
+| 집계 | `design-review-all-*.md` 또는 `## 통합 finding 목록` 헤더 | HIGH/MID/LOW · **SourceRail chip** (어떤 리뷰가 같은 finding 을 잡았는지 시각화) + After mockup |
+
+session-key 기반 ID 추적 (`{type-prefix}-{HHmm}.c{N}`) — `crit-1310.c5`, `lawsofux-1430.c3`, `revall-1605.c12` 등 자기 설명적. 같은 캔버스에 여러 리뷰 누적해도 출처 즉시 파악.
 
 ## 요구 사항
 

@@ -1,9 +1,12 @@
 ---
 name: design-ux-lawsofux-review
-description: Figma URL 또는 Pencil(.pen) 파일의 선택된 프레임을 lawsofux.com 의 23개 행동·인지 UX 법칙으로 정적 분석하여 프레임당 한국어 마크다운 리뷰 보고서를 생성. 사용자가 "Laws of UX 행동·인지 리뷰", "lawsofux UX 평가", "UX 법칙 인지 검토", "/design-ux-lawsofux-review" 를 말하거나 figma.com/design URL 또는 .pen 파일을 가지고 Laws of UX 행동·인지 기반 리뷰를 요청할 때 사용.
+review-level: L1 Skeleton
+description: "[L1 Skeleton] Figma URL 또는 Pencil(.pen) 파일의 선택된 프레임을 lawsofux.com 의 23개 행동·인지 UX 법칙으로 정적 분석하여 프레임당 한국어 마크다운 리뷰 보고서를 생성. 사용자가 \"Laws of UX 행동·인지 리뷰\", \"lawsofux UX 평가\", \"UX 법칙 인지 검토\", \"/design-ux-lawsofux-review\" 를 말하거나 figma.com/design URL 또는 .pen 파일을 가지고 Laws of UX 행동·인지 기반 리뷰를 요청할 때 사용."
 ---
 
 # design-ux-lawsofux-review
+
+**Review Level**: L1 Skeleton — Laws of UX 행동·인지 23개 (단일 프레임 UX 골격).
 
 lawsofux.com 의 행동·인지 카테고리 23개 UX 법칙을 평가 rubric 으로 사용하여 디자인 프레임을 정적 분석한다. 리포트만 생성한다 — Figma/Pencil 코멘트 게시는 별도 스킬(`annotate-design`) 책임.
 

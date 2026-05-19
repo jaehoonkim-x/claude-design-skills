@@ -1,9 +1,12 @@
 ---
 name: design-ui-critic-review
-description: Figma URL 또는 Pencil(.pen) 파일의 선택된 프레임을 디자이너 비평 관점(Visual Hierarchy & Composition·Typography·Color & Contrast·Spacing & Layout·Interaction States·Content & Microcopy·AI Slop)으로 깊이 분석하여 프레임당 한국어 마크다운 리뷰 보고서를 생성. Design Score A-F + AI Slop Score A-F 듀얼 헤드라인. 사용자가 "디자이너 비평 + AI Slop 리뷰", "디자인 critic", "AI slop 검사", "디자인 폴리시 검토", "/design-ui-critic-review" 를 말하거나 figma.com/design URL 또는 .pen 파일을 가지고 디자이너 눈으로 정적 디자인 리뷰를 요청할 때 사용.
+review-level: L0 Surface
+description: "[L0 Surface] Figma URL 또는 Pencil(.pen) 파일의 선택된 프레임을 디자이너 비평 관점(Visual Hierarchy & Composition·Typography·Color & Contrast·Spacing & Layout·Interaction States·Content & Microcopy·AI Slop)으로 깊이 분석하여 프레임당 한국어 마크다운 리뷰 보고서를 생성. Design Score A-F + AI Slop Score A-F 듀얼 헤드라인. 사용자가 \"디자이너 비평 + AI Slop 리뷰\", \"디자인 critic\", \"AI slop 검사\", \"디자인 폴리시 검토\", \"/design-ui-critic-review\" 를 말하거나 figma.com/design URL 또는 .pen 파일을 가지고 디자이너 눈으로 정적 디자인 리뷰를 요청할 때 사용."
 ---
 
 # design-ui-critic-review
+
+**Review Level**: L0 Surface — 시각 비평 (단일 프레임 표면).
 
 디자이너 비평 관점으로 정적 디자인 프레임을 평가한다. 라이브 사이트가 아닌 **디자인 파일**(`.pen`, Figma) 대상. 리포트만 생성한다 — Figma/Pencil 코멘트 게시는 별도 스킬(`annotate-design`) 책임.
 

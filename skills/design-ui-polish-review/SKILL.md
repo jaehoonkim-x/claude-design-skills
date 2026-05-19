@@ -1,9 +1,12 @@
 ---
 name: design-ui-polish-review
-description: Figma URL 또는 Pencil(.pen) 파일의 선택된 프레임을 10개 시각 디자인 차원(Visual Hierarchy·Typography·Color Palette·Spacing & White Space·Visual Consistency·Imagery & Graphics·Layout & Grid·Component Design·Branding & Personality·Modern Standards)으로 깊이 분석하여 프레임당 한국어 마크다운 리뷰 보고서를 생성. 종합 0-100 점수 + Grade A-F + Design Quality Level L1-L5 헤드라인. 사용자가 "UI 시각 폴리시 10 차원 리뷰", "디자인 완성도 점수", "시각 디자인 평가", "/design-ui-polish-review" 를 말하거나 figma.com/design URL 또는 .pen 파일을 가지고 시각 폴리시/완성도 리뷰를 요청할 때 사용.
+review-level: L0 Surface
+description: "[L0 Surface] Figma URL 또는 Pencil(.pen) 파일의 선택된 프레임을 10개 시각 디자인 차원(Visual Hierarchy·Typography·Color Palette·Spacing & White Space·Visual Consistency·Imagery & Graphics·Layout & Grid·Component Design·Branding & Personality·Modern Standards)으로 깊이 분석하여 프레임당 한국어 마크다운 리뷰 보고서를 생성. 종합 0-100 점수 + Grade A-F + Design Quality Level L1-L5 헤드라인. 사용자가 \"UI 시각 폴리시 10 차원 리뷰\", \"디자인 완성도 점수\", \"시각 디자인 평가\", \"/design-ui-polish-review\" 를 말하거나 figma.com/design URL 또는 .pen 파일을 가지고 시각 폴리시/완성도 리뷰를 요청할 때 사용."
 ---
 
 # design-ui-polish-review
+
+**Review Level**: L0 Surface — 시각 폴리시 (단일 프레임 표면).
 
 시각 디자인 폴리시·완성도 관점으로 정적 디자인 프레임을 평가한다. 라이브 사이트가 아닌 **디자인 파일**(`.pen`, Figma) 대상. 리포트만 생성한다 — Figma/Pencil 코멘트 게시는 별도 스킬(`annotate-design`) 책임.
 

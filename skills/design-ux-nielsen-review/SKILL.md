@@ -1,9 +1,12 @@
 ---
 name: design-ux-nielsen-review
-description: Figma URL 또는 Pencil(.pen) 파일의 선택된 프레임을 Jakob Nielsen 의 9가지 UX 사용성 휴리스틱으로 정적 분석하여 프레임당 한국어 마크다운 리뷰 보고서를 생성. 사용자가 "Nielsen 9 사용성 휴리스틱 리뷰", "닐슨 UX 휴리스틱", "사용성 휴리스틱 검토", "닐슨 UX 9원칙 검토", "/design-ux-nielsen-review" 를 말하거나 figma.com/design URL 또는 .pen 파일을 가지고 Nielsen UX 기반 리뷰를 요청할 때 사용.
+review-level: L1 Skeleton
+description: "[L1 Skeleton] Figma URL 또는 Pencil(.pen) 파일의 선택된 프레임을 Jakob Nielsen 의 9가지 UX 사용성 휴리스틱으로 정적 분석하여 프레임당 한국어 마크다운 리뷰 보고서를 생성. 사용자가 \"Nielsen 9 사용성 휴리스틱 리뷰\", \"닐슨 UX 휴리스틱\", \"사용성 휴리스틱 검토\", \"닐슨 UX 9원칙 검토\", \"/design-ux-nielsen-review\" 를 말하거나 figma.com/design URL 또는 .pen 파일을 가지고 Nielsen UX 기반 리뷰를 요청할 때 사용."
 ---
 
 # design-ux-nielsen-review
+
+**Review Level**: L1 Skeleton — Nielsen 9 사용성 휴리스틱 (단일 프레임 UX 골격).
 
 Jakob Nielsen (Nielsen Norman Group) 의 UX 카테고리 9개 휴리스틱을 평가 rubric 으로 사용하여 디자인 프레임을 정적 분석한다. 리포트만 생성한다 — Figma/Pencil 코멘트 게시는 별도 스킬(`annotate-design`) 책임.
 

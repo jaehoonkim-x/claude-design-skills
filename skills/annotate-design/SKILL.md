@@ -1,6 +1,6 @@
 ---
 name: annotate-design
-description: 디자인 리뷰 마크다운 파일(design-{ux,ui}-{rubric}-review 출력의 개별 리뷰 또는 design-review-all 출력의 집계 .md)을 읽어 Pencil(.pen) 또는 Figma 디자인 파일 옆에 코멘트 패널 + 각 finding 별 "After 예시" mockup 카드 컬럼을 부착하는 스킬. 집계 .md 입력 시 각 카드 Head 에 출처(source) chip rail (예: `[ui-lawsofux][ceo]`) 을 시각화하여 어떤 리뷰가 같은 finding 을 동시에 지적했는지 한눈에 보여준다. 디자인 노드 위에 직접 번호 마커 핀이나 Figma 네이티브 코멘트는 찍지 않는다(캔버스 옆 패널만 생성). 사용자가 "디자인에 코멘트 패널 달기", "리뷰 결과 디자인에 적용", "annotate-design", "리뷰 .md 시각화", "집계 리뷰 코멘트" 등을 요청할 때 사용.
+description: 디자인 리뷰 마크다운 파일(design-{ux,ui}-{rubric}-review 출력의 개별 리뷰 또는 design-review-all 출력의 집계 .md)을 읽어 Pencil(.pen) 또는 Figma 디자인 파일 옆에 코멘트 패널을 부착하는 스킬. 패널은 severity 3개 컬럼(Critical/HIGH · Warning/MED · Info/LOW)으로 분리되어 있으며, 각 finding 카드는 해당 severity 컬럼에만 배치된다. 집계 .md 입력 시 각 카드 Head 에 출처(source) chip rail (예: `[ui-lawsofux][ceo]`) 을 시각화하여 어떤 리뷰가 같은 finding 을 동시에 지적했는지 한눈에 보여준다. 디자인 노드 위에 직접 번호 마커 핀이나 Figma 네이티브 코멘트는 찍지 않는다(캔버스 옆 패널만 생성). 사용자가 "디자인에 코멘트 패널 달기", "리뷰 결과 디자인에 적용", "annotate-design", "리뷰 .md 시각화", "집계 리뷰 코멘트" 등을 요청할 때 사용.
 ---
 
 # annotate-design
@@ -11,7 +11,7 @@ description: 디자인 리뷰 마크다운 파일(design-{ux,ui}-{rubric}-review
 
 생성물 2종:
 
-1. **코멘트 패널 / mockup Section** — Pencil: 캔버스 우측 finding 카드 컬럼. Figma: 우측 Section 안 카드 컬럼.
+1. **코멘트 패널 / mockup Section** — Pencil: 캔버스 우측 severity 3컬럼 패널(Critical/HIGH · Warning/MED · Info/LOW). Figma: 우측 Section 안 동일 3컬럼 구조. 각 카드는 해당 severity 컬럼에만 배치.
 2. **After 예시 mockup** — 각 카드 하단에 fix 적용 후 모습 시각화.
 
 각 카드 Head 에는 finding 번호 배지(시각적 카드 번호)가 포함되지만, 그 번호는 **카드 내 식별용**이지 노드 위 핀이 아니다.
@@ -143,45 +143,87 @@ description: 디자인 리뷰 마크다운 파일(design-{ux,ui}-{rubric}-review
 `batch_design` 으로 다음을 한 번에 생성:
 
 ```
-commentPanel (frame name:"Comment Panel [{session-key}] {review-slug}", x=screen.x+screen.width+80, y=screen.y, width:380, vertical, padding:24, gap:16, fill:#FFFBEB, stroke:#FCD34D)
-  ├─ commentTitle (text 18/700: "{review-type} 리뷰 코멘트 · 프레임명")
-  ├─ sourceLine (text 10/500 #64748B: "📄 source: {입력 .md 파일명 풀}")  ← 추적용 풀 파일명
-  ├─ commentMeta (text 11/500 #64748B:
-        - 개별 모드: "점수 N/10 · warning M · info K · session-key: {session-key}"
-        - 집계 모드: "통합 {unique}건 (원본 {raw}건, 병합률 {pct}%) · HIGH H · MID M · LOW L · session-key: {session-key}")
-  └─ 각 finding 마다 cN (frame, fill:#FFFFFF, cornerRadius:10, padding:14, gap:6, stroke left:4 severity-color)
-      ├─ Head (frame, horizontal, gap:8, alignItems:center, layoutWrap:WRAP)
-      │   ├─ 번호 배지 (frame 24×24, severity color, cornerRadius:12, 흰색 숫자 text "{N}")
-      │   ├─ severity chip (frame, padding:[2,8], severity bg, cornerRadius:999, 텍스트 severity 영문 대문자 — 집계 모드에서는 HIGH/MID/LOW)
-      │   ├─ 점수 text "N/10"  ← 개별 모드만 (집계 모드는 점수 없음, 생략)
-      │   └─ 카드 ID chip (frame, padding:[2,6], severity bg, stroke 1 severity color, cornerRadius:9, text "{session-key}.c{N}" fontSize:9 weight:600 fill severity-dark)
-      ├─ SourceRail (frame horizontal, gap:4, alignItems:center, padding:[0,2]) — 집계 모드 전용
-      │   ├─ rail prefix text 9/600 #64748B: "출처:"
-      │   └─ source chip 들 (각 frame padding:[6,2], cornerRadius:6, fill:#EEF2F7, stroke 1 #CBD5E1, text 9/700 #475569 "{src}")
-      │       severity-tinted variant: HIGH 카드 → fill:#FEE2E2 stroke:#FCA5A5 text:#B91C1C
-      │                                  MID 카드  → fill:#FEF3C7 stroke:#FCD34D text:#B45309
-      │                                  LOW 카드  → fill:#DBEAFE stroke:#93C5FD text:#1D4ED8
-      ├─ Title (text 14/700, finding 항목명)
-      ├─ Target (text 11/500 #64748B, "대상: {evidence 요약}") — 개별 모드 전용 (집계 모드는 생략)
-      ├─ Body (text 12/400 #334155, 본문, textGrowth fixed-width fill_container, lineHeight 1.4)
-      │       - 개별 모드 = fix 텍스트
-      │       - 집계 모드 = summary 한 줄 (evidence+fix 통합)
-      ├─ Link (text 10/500 #3B82F6 underline, 참고 링크 — 개별 모드만, 집계 모드는 생략)
-      ├─ Divider (rectangle width fill_container height 1 fill #E2E8F0)
-      ├─ ExLabel (frame horizontal, 번호 배지 18×18 + "After 예시" text 11/700)
-      └─ Example mockup (frame padding:10 gap:8 fill:#F8FAFC stroke #E2E8F0) — Body 텍스트로부터 AI 생성
+commentPanel (frame name:"Comment Panel [{session-key}] {review-slug}",
+              x=screen.x+screen.width+80, y=screen.y,
+              horizontal, padding:24, gap:0, fill:#FFFBEB, stroke:#FCD34D)
+  ├─ panelHeader (frame, vertical, layoutAlign:STRETCH, padding:[0,0,16,0], gap:4)
+  │   ├─ commentTitle (text 18/700: "{review-type} 리뷰 코멘트 · 프레임명")
+  │   ├─ sourceLine (text 10/500 #64748B: "📄 source: {입력 .md 파일명 풀}")
+  │   └─ commentMeta (text 11/500 #64748B:
+  │         - 개별 모드: "점수 N/10 · critical C · warning M · info K · session-key: {session-key}"
+  │         - 집계 모드: "통합 {unique}건 (원본 {raw}건, 병합률 {pct}%) · HIGH H · MID M · LOW L · session-key: {session-key}")
+  │
+  └─ columnsRow (frame, horizontal, gap:0, layoutAlign:STRETCH, padding:0)
+      ├─ colCritical (frame, vertical, width:380, padding:[0,16,16,16], gap:12,
+      │               fill:#FFF5F5, stroke right:1 #FCA5A5)
+      │   ├─ colHeader (frame horizontal, gap:6, padding:[8,0], alignItems:center)
+      │   │   ├─ colLabel (text 13/700 #B91C1C: "CRITICAL")   ← 집계 모드: "HIGH"
+      │   │   └─ colCount (frame padding:[2,8] cornerRadius:999 fill:#FECACA,
+      │   │                text 11/700 #B91C1C: "{C건}")
+      │   └─ [critical/HIGH finding 카드들 — cN, 아래 카드 구조 참조]
+      │
+      ├─ colWarning (frame, vertical, width:380, padding:[0,16,16,16], gap:12,
+      │              fill:#FFFBEB, stroke right:1 #FCD34D)
+      │   ├─ colHeader (frame horizontal, gap:6, padding:[8,0], alignItems:center)
+      │   │   ├─ colLabel (text 13/700 #B45309: "WARNING")    ← 집계 모드: "MED"
+      │   │   └─ colCount (frame padding:[2,8] cornerRadius:999 fill:#FEF3C7,
+      │   │                text 11/700 #B45309: "{M건}")
+      │   └─ [warning/MED finding 카드들 — cN]
+      │
+      └─ colInfo (frame, vertical, width:380, padding:[0,16,16,16], gap:12,
+                  fill:#F0F7FF, stroke:none)
+          ├─ colHeader (frame horizontal, gap:6, padding:[8,0], alignItems:center)
+          │   ├─ colLabel (text 13/700 #1D4ED8: "INFO")       ← 집계 모드: "LOW"
+          │   └─ colCount (frame padding:[2,8] cornerRadius:999 fill:#DBEAFE,
+          │                text 11/700 #1D4ED8: "{K건}")
+          └─ [info/LOW finding 카드들 — cN]
+
+※ 컬럼 간 구분선: colCritical·colWarning 우측 stroke right:1 (Critical=#FCA5A5, Warning=#FCD34D).
+   colInfo 는 우측 보더 없음 (패널 끝).
+※ N/A severity 카드: 4번째 컬럼 colNA (width:200 fill:#F8FAFC stroke right:1 #E2E8F0,
+   헤더 "N/A ({N건})" text #64748B) 를 colInfo 우측에 추가. N/A 건이 0건이면 컬럼 생성 생략.
+```
+
+**카드 구조 (각 컬럼 안 cN — 공통)**:
+
+```
+cN (frame, vertical, fill:#FFFFFF, cornerRadius:10, padding:14, gap:6,
+    stroke left:4 severity-color, layoutAlign:STRETCH)
+  ├─ Head (frame, horizontal, gap:8, alignItems:center, layoutWrap:WRAP)
+  │   ├─ 번호 배지 (frame 24×24, severity color, cornerRadius:12, 흰색 숫자 text "{N}")
+  │   ├─ severity chip 생략 — 컬럼 자체가 severity 구분이므로 카드에 severity 색·칩 중복 표기 안 함
+  │   ├─ 점수 text "N/10"  ← 개별 모드만 (집계 모드는 점수 없음, 생략)
+  │   └─ 카드 ID chip (frame, padding:[2,6], severity bg, stroke 1 severity color,
+  │                    cornerRadius:9, text "{session-key}.c{N}" fontSize:9 weight:600
+  │                    fill severity-dark)
+  ├─ SourceRail (frame horizontal, gap:4, alignItems:center, padding:[0,2]) — 집계 모드 전용
+  │   ├─ rail prefix text 9/600 #64748B: "출처:"
+  │   └─ source chip 들 (각 frame padding:[6,2], cornerRadius:6, fill:#EEF2F7,
+  │                       stroke 1 #CBD5E1, text 9/700 #475569 "{src}")
+  │       severity-tinted variant: HIGH 컬럼 → fill:#FEE2E2 stroke:#FCA5A5 text:#B91C1C
+  │                                  MED 컬럼  → fill:#FEF3C7 stroke:#FCD34D text:#B45309
+  │                                  LOW 컬럼  → fill:#DBEAFE stroke:#93C5FD text:#1D4ED8
+  ├─ Title (text 14/700, finding 항목명)
+  ├─ Target (text 11/500 #64748B, "대상: {evidence 요약}") — 개별 모드 전용 (집계 모드는 생략)
+  ├─ Body (text 12/400 #334155, 본문, textGrowth fixed-width fill_container, lineHeight 1.4)
+  │       - 개별 모드 = fix 텍스트
+  │       - 집계 모드 = summary 한 줄 (evidence+fix 통합)
+  ├─ Link (text 10/500 #3B82F6 underline, 참고 링크 — 개별 모드만, 집계 모드는 생략)
+  ├─ Divider (rectangle width fill_container height 1 fill #E2E8F0)
+  ├─ ExLabel (frame horizontal, 번호 배지 18×18 + "After 예시" text 11/700)
+  └─ Example mockup (frame padding:10 gap:8 fill:#F8FAFC stroke #E2E8F0) — Body 텍스트로부터 AI 생성
 ```
 
 Target 줄은 evidence 요약 텍스트만 표기. **마커 list chip / `[{session-key}.m{...}]` 참조는 제거** (마커가 없으므로).
 
-**SourceRail (집계 모드 전용)**: source 배열을 chip rail 로 나열. 각 chip = 어떤 review 스킬이 같은 finding 을 잡았는지 표시. chip 색은 카드 severity 톤과 일치 (위 표 참조). source 가 1개면 chip 1개, 11개면 11개 모두 나열 (자동 wrap).
+**SourceRail (집계 모드 전용)**: source 배열을 chip rail 로 나열. 각 chip = 어떤 review 스킬이 같은 finding 을 잡았는지 표시. chip 색은 카드가 속한 컬럼의 severity 톤과 일치 (위 표 참조). source 가 1개면 chip 1개, 11개면 11개 모두 나열 (자동 wrap).
 
-번호 배지의 `{N}` 은 카드 순서 = finding 순서. 노드 위 핀과는 무관 (이 스킬은 그 핀을 만들지 않음).
+번호 배지의 `{N}` 은 finding 전체 순서 (컬럼 간 연속). 노드 위 핀과는 무관 (이 스킬은 그 핀을 만들지 않음).
 
-Severity 색 매핑:
-- `critical` → 좌측 보더 #DC2626, 배지 bg #FECACA, 배지 text/severity-dark #B91C1C
-- `warning` → 좌측 보더 #F59E0B, 배지 bg #FEF3C7, 배지 text/severity-dark #B45309
-- `info` → 좌측 보더 #3B82F6, 배지 bg #DBEAFE, 배지 text/severity-dark #1D4ED8
+Severity 색 매핑 (카드 좌측 보더 + 배지):
+- `critical / HIGH` → 좌측 보더 #DC2626, 배지 bg #FECACA, 배지 text/severity-dark #B91C1C
+- `warning / MED`  → 좌측 보더 #F59E0B, 배지 bg #FEF3C7, 배지 text/severity-dark #B45309
+- `info / LOW`     → 좌측 보더 #3B82F6, 배지 bg #DBEAFE, 배지 text/severity-dark #1D4ED8
 - 번호 배지 색은 좌측 보더와 동일
 
 ### Step 4 — After 예시 mockup 생성 (Pencil 경로)
@@ -227,24 +269,40 @@ figma-console MCP 가 있으면 Pencil 과 동등하게 코멘트 패널(=Sectio
 
 #### Figma 패널 Section 구조
 
-위치: 대상 frame 의 `x + width + 80`, `y` 부터 수직 스택.
+위치: 대상 frame 의 `x + width + 80`, `y` 부터. 패널 전체 폭 = 3컬럼(각 380px) + 컬럼 간 divider = 약 1180px (N/A 컬럼 있으면 +200px).
 
 **Section name**: `Comment Panel [{session-key}] {frame-slug}` (review-type prefix 가 필요하면 앞에 추가, 예: `Laws of UX — Comment Panel [lawsofux-1400] Dashboard`).
+
+**Section 내부 구조** (Pencil Step 3 과 동일한 3컬럼 레이아웃):
+
+```
+Section "Comment Panel [...]"
+  └─ panelHeader   (frame HORIZONTAL layoutAlign:STRETCH, padding:[24,24,16,24], gap:12)
+  └─ columnsRow    (frame HORIZONTAL layoutAlign:STRETCH, padding:[0,24,24,24], gap:0)
+      ├─ colCritical  (width:380, fill:#FFF5F5, stroke right:1 #FCA5A5)
+      │   ├─ colHeader  "CRITICAL ({C})"  또는  "HIGH ({C})"
+      │   └─ [카드들]
+      ├─ colWarning   (width:380, fill:#FFFBEB, stroke right:1 #FCD34D)
+      │   ├─ colHeader  "WARNING ({M})"  또는  "MED ({M})"
+      │   └─ [카드들]
+      └─ colInfo      (width:380, fill:#F0F7FF, stroke:none)
+          ├─ colHeader  "INFO ({K})"  또는  "LOW ({K})"
+          └─ [카드들]
+      (N/A 카드 있으면 colNA width:200 fill:#F8FAFC stroke right:1 #E2E8F0 추가)
+```
 
 **각 카드 name**: `Card [{session-key}.c{N}] {title}` (예: `Card [lawsofux-1400.c5] Law of Uniform Connectedness`).
 
 **카드 Head 구조** (Pencil Step 3 의 `cN` Head 와 동일):
 
 - 번호 배지 (severity color, 28×28, 흰색 숫자 `{N}`)
-- severity chip
-  - 개별 모드: `CRITICAL / WARNING / INFO`
-  - 집계 모드: `HIGH / MID / LOW`
+- **severity chip 생략** — 컬럼 헤더가 severity 를 이미 나타내므로 카드 내 중복 표기 안 함
 - 점수 text `{score}/10` (개별 모드만)
 - **카드 ID chip** `{session-key}.c{N}` (severity bg, stroke 1 severity color, fontSize 9 weight 600)
-- **SourceRail** (집계 모드 전용) — `출처: [src1][src2]...` chip rail. severity 톤 적용:
-  - HIGH 카드: fill #FEE2E2 / stroke #FCA5A5 / text #B91C1C
-  - MID 카드: fill #FEF3C7 / stroke #FCD34D / text #B45309
-  - LOW 카드: fill #DBEAFE / stroke #93C5FD / text #1D4ED8
+- **SourceRail** (집계 모드 전용) — `출처: [src1][src2]...` chip rail. 카드가 속한 컬럼 severity 톤 적용:
+  - HIGH/CRITICAL 컬럼: fill #FEE2E2 / stroke #FCA5A5 / text #B91C1C
+  - MED/WARNING 컬럼: fill #FEF3C7 / stroke #FCD34D / text #B45309
+  - LOW/INFO 컬럼: fill #DBEAFE / stroke #93C5FD / text #1D4ED8
 - Title (16/700)
 - Target (`🎯 {evidence 요약}`) — 개별 모드만 (집계 모드는 생략, summary 가 Body 로 직접)
 - Body (개별: fix / 집계: summary 한 줄)
@@ -345,7 +403,9 @@ figma-console MCP 가 있으면 Pencil 과 동등하게 코멘트 패널(=Sectio
 | 항목 | 개별 모드 | 집계 모드 |
 |------|----------|----------|
 | 입력 .md | `lawsofux-*.md`, `polish-*.md` 등 | `design-review-all-*.md` |
-| 카드 severity 표기 | CRITICAL/WARNING/INFO | HIGH/MID/LOW |
+| **패널 컬럼** | **3컬럼: CRITICAL · WARNING · INFO** | **3컬럼: HIGH · MED · LOW** |
+| 카드 배치 | 해당 severity 컬럼에만 배치 | 해당 severity 컬럼에만 배치 |
+| 카드 내 severity chip | **생략** (컬럼 헤더가 대신함) | **생략** (컬럼 헤더가 대신함) |
 | 점수 chip | 있음 | 없음 |
 | Target 줄 | evidence 요약 | 생략 |
 | Body | fix 본문 | summary 한 줄 (evidence+fix 통합) |
@@ -385,7 +445,7 @@ figma-console MCP 가 있으면 Pencil 과 동등하게 코멘트 패널(=Sectio
 ```
 /annotate-design ./design-reviews/lawsofux-dashboard-20260514-1230.md
 ```
-→ .md 의 `입력 소스: ./test.pen` 추출 → Pencil MCP 체크 → test.pen 오픈 → 7개 finding 파싱 → 코멘트 패널 + 카드 7장 (Head 번호 배지 1..7 포함) → 요약 출력. **노드 위 마커 부착 단계 없음.**
+→ .md 의 `입력 소스: ./test.pen` 추출 → Pencil MCP 체크 → test.pen 오픈 → 7개 finding 파싱 → **severity 3컬럼 패널** (CRITICAL·WARNING·INFO) + 카드 7장 각 해당 컬럼 배치 (Head 번호 배지 1..7 포함) → 요약 출력. **노드 위 마커 부착 단계 없음.**
 
 ### 예시 2 — 명시적 디자인 파일
 ```
@@ -397,7 +457,7 @@ figma-console MCP 가 있으면 Pencil 과 동등하게 코멘트 패널(=Sectio
 ```
 /annotate-design ./design-reviews/lawsofux-page-ad-analysis-20260514-1400.md https://www.figma.com/design/abc/MyApp?node-id=2-10969
 ```
-→ figma-console `figma_get_status` → 연결 확인 → frame 2:10969 bounds 확보 → `figma_execute` 1회로 우측 Section + 11 카드 + mockup 생성 → 스크린샷 검증 → 요약. **`figma_post_comment` 호출 없음.**
+→ figma-console `figma_get_status` → 연결 확인 → frame 2:10969 bounds 확보 → `figma_execute` 1회로 우측 Section + **3컬럼(CRITICAL·WARNING·INFO)** + 11 카드(각 해당 컬럼 배치) + mockup 생성 → 스크린샷 검증 → 요약. **`figma_post_comment` 호출 없음.**
 
 ### 예시 4 — claude_ai_Figma 단독 (읽기 전용)
 ```
@@ -409,7 +469,7 @@ figma-console MCP 가 있으면 Pencil 과 동등하게 코멘트 패널(=Sectio
 ```
 /annotate-design ./design-reviews/design-review-all-dashboard-20260518-1605.md
 ```
-→ 파일명 `design-review-all-*` 감지 → 집계 모드 진입 → `## 메타 > 입력 소스` 에서 디자인 파일 자동 추출 → 통합 finding 목록 파싱 (HIGH/MID/LOW 섹션, source tag 배열) → session-key `revall-1605` → 카드 = 통합 finding 수, 각 카드 Head 에 **SourceRail chip 들** (예: `출처: [ui-critic][ui-lawsofux][ceo]`) → Body = summary 한 줄 + After mockup → 스크린샷 검증 → 요약. 같은 finding 을 잡은 리뷰가 많을수록 chip 수가 많아 시각적으로 "여러 rubric 이 동의한 high-priority 이슈" 가 한눈에 드러남.
+→ 파일명 `design-review-all-*` 감지 → 집계 모드 진입 → `## 메타 > 입력 소스` 에서 디자인 파일 자동 추출 → 통합 finding 목록 파싱 (HIGH/MID/LOW 섹션, source tag 배열) → session-key `revall-1605` → **severity 3컬럼 패널 생성**: 좌(HIGH) · 중(MED) · 우(LOW), 각 컬럼 헤더에 건수 표기 (예: "HIGH (5)") → 각 finding 카드는 해당 severity 컬럼에만 배치 → 각 카드 Head 에 **SourceRail chip 들** (예: `출처: [ui-critic][ui-lawsofux][ceo]`) → Body = summary 한 줄 + After mockup → 컬럼 간 구분선: HIGH↔MED = #FCA5A5, MED↔LOW = #FCD34D → 스크린샷 검증 → 요약. 같은 finding 을 잡은 리뷰가 많을수록 chip 수가 많아 시각적으로 "여러 rubric 이 동의한 high-priority 이슈" 가 한눈에 드러남. N/A severity 가 있으면 우측에 4번째 컬럼(LOW 우측) 자동 추가.
 
 ## 참고
 

@@ -1,9 +1,12 @@
 ---
 name: design-ui-ixdf-review
-description: Figma URL 또는 Pencil(.pen) 파일의 선택된 프레임을 IxDF "The Basics of User Experience Design" 의 UI 5개 항목(1 UX Factor: Desirable + 1 Usability: Engagement + 3 Interaction Dimensions: Visual Representations·Physical Space·Time)으로 정적 분석하여 프레임당 한국어 마크다운 리뷰 보고서를 생성. 사용자가 "IxDF UI 5 항목 리뷰", "IxDF UI 평가", "ixdf ui 리뷰", "/design-ui-ixdf-review" 를 말하거나 figma.com/design URL 또는 .pen 파일을 가지고 IxDF UI 기반 리뷰를 요청할 때 사용.
+review-level: L0 Surface
+description: "[L0 Surface] Figma URL 또는 Pencil(.pen) 파일의 선택된 프레임을 IxDF \"The Basics of User Experience Design\" 의 UI 5개 항목(1 UX Factor: Desirable + 1 Usability: Engagement + 3 Interaction Dimensions: Visual Representations·Physical Space·Time)으로 정적 분석하여 프레임당 한국어 마크다운 리뷰 보고서를 생성. 사용자가 \"IxDF UI 5 항목 리뷰\", \"IxDF UI 평가\", \"ixdf ui 리뷰\", \"/design-ui-ixdf-review\" 를 말하거나 figma.com/design URL 또는 .pen 파일을 가지고 IxDF UI 기반 리뷰를 요청할 때 사용."
 ---
 
 # design-ui-ixdf-review
+
+**Review Level**: L0 Surface — IxDF UI 5항목 (단일 프레임 표면).
 
 Interaction Design Foundation 의 "The Basics of User Experience Design" 방법론에서 **UI 카테고리 5개 항목**을 평가 rubric 으로 사용하여 디자인 프레임을 정적 분석한다. 리포트만 생성한다 — Figma/Pencil 코멘트 게시는 별도 스킬(`annotate-design`) 책임.
 

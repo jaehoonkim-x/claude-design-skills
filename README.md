@@ -10,9 +10,17 @@ Claude Code 디자인 리뷰 + 어노테이션 스킬 모음. **Pencil(.pen)** �
 | 멀티 레벨 wrapper | 1 | 23개 rubric 5×N wave dispatch → L0 Surface·L1 Skeleton·L2 Structure·L5 Strategy 동시 집계 (rate limit 0건 · ~21분 wall-clock) |
 | 어노테이션 | 1 | 리뷰 .md (개별/집계) → 캔버스 옆 severity 3컬럼 코멘트 패널 + SourceRail chip + After 시각 mockup 자동 부착 |
 
+## v2.0.1 핵심 변경 (2026-05-21)
+
+- **스킬 +1**: `design-ux-toss-review` 추가 (L2 Structure) — Toss 「Apps in Toss」 가이드 직격
+- **출처**: [Apps in Toss · Consumer UX Guide](https://developers-apps-in-toss.toss.im/design/consumer-ux-guide.html) · [UX Writing Guide](https://developers-apps-in-toss.toss.im/design/ux-writing.html)
+- **rubric**: Consumer UX Dark Pattern 5룰 (DP-1~5) + UX Writing 5원칙+보조 (W-1~5 + W-Aux) = 10 항목
+- **헤드라인**: Toss Compliance Grade (A-F) + Dark Pattern Health + Writing Health + Toss Approval Likelihood
+- **활용**: 토스 입점 미니앱 / 토스 결제 연동 / 토스 톤 차용 셀러 화면 컴플라이언스 사전 audit
+
 ## v2.0 핵심 변경 (2026-05-19)
 
-- **스킬 수**: 12 → 23 (+11, L0 +4 / L1 +3 / L2 +4 / L5 +1)
+- **스킬 수**: 12 → 24 (+12, L0 +4 / L1 +3 / L2 +5 / L5 +1) — v2.0.1 에서 L2 +1 (Toss)
 - **wrapper 최적화 8개**: Wave dispatch 5×N · Conditional pre-skip · Snapshot 캐싱 · Schema 1x · 보고서 250라인 cap · Heavy 우선 wave · Caveman 프롬프트 · 180s timeout
 - **wall-clock**: ~28분 (병렬 23 + retry) → ~21분 (5 wave)
 - **rate limit fail**: 평균 5건 → **0건** (100% 해소)
@@ -44,7 +52,7 @@ Claude Code 디자인 리뷰 + 어노테이션 스킬 모음. **Pencil(.pen)** �
    → 23개 rubric 집계 finding 을 dedupe + SourceRail chip 으로 시각화
 ```
 
-## 리뷰 스킬 (23)
+## 리뷰 스킬 (24)
 
 ### L0 Surface — UI 10종
 
@@ -72,7 +80,7 @@ Claude Code 디자인 리뷰 + 어노테이션 스킬 모음. **Pencil(.pen)** �
 | `design-ux-form-review` | Adam Silver Form Design Patterns 12 lens (conditional) | Adam Silver |
 | `design-ux-states-review` | Loading/Empty/Error/Success/Offline/Permission/Stale 7 state × 3 sub = 21 | NN/g |
 
-### L2 Structure — UX Flow / Eval 5종
+### L2 Structure — UX Flow / Eval 6종
 
 | Skill | Rubric | 출처 |
 |---|---|---|
@@ -81,6 +89,7 @@ Claude Code 디자인 리뷰 + 어노테이션 스킬 모음. **Pencil(.pen)** �
 | `design-ux-cognitive-walkthrough-review` | Lewis & Polson 1990 CW 4Q + Streamlined CW + Gulf (conditional, 2+ frame) | Lewis & Polson |
 | `design-ux-pure-review` | NN/g PURE Method task usability 정량 점수 | NN/g |
 | `design-ux-heart-review` | Google HEART Framework + GSM (Goals-Signals-Metrics) | Google Research |
+| `design-ux-toss-review` | Toss 「Apps in Toss」 가이드 10룰 (DP 5 + Writing 5) — L1-L2 hybrid | [Apps in Toss · Consumer UX](https://developers-apps-in-toss.toss.im/design/consumer-ux-guide.html) · [UX Writing](https://developers-apps-in-toss.toss.im/design/ux-writing.html) |
 
 ### L5 Strategy — CEO + JTBD 2종
 
@@ -93,7 +102,7 @@ Claude Code 디자인 리뷰 + 어노테이션 스킬 모음. **Pencil(.pen)** �
 
 ### `design-review-all`
 
-23개 rubric (UI 10 + UX 6 + UX Flow 5 + Strategy 2) 을 **5×N wave dispatch** 로 분할 실행 → L0 Surface + L1 Skeleton + L2 Structure + L5 Strategy 동시 진단. 개별 보고서 N개 + 집계 보고서 1개 (`design-review-all-{frame-slug}-{ts}.md`) 생성.
+24개 rubric (UI 10 + UX 6 + UX Flow 6 + Strategy 2) 을 **5×N wave dispatch** 로 분할 실행 → L0 Surface + L1 Skeleton + L2 Structure + L5 Strategy 동시 진단. 개별 보고서 N개 + 집계 보고서 1개 (`design-review-all-{frame-slug}-{ts}.md`) 생성.
 
 **v2.0 최적화 8개**:
 

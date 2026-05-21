@@ -8,10 +8,10 @@
   "plugins": [
     {
       "name": "claude-design-skills",
-      "description": "24 design review rubrics (UI L0 10 / UX L1 6 / UX L2 6 / Strategy L5 2: Nielsen·Laws of UX·IxDF·Polaris·Tufte·WCAG·Gestalt·Erik Kennedy·Token Drift·Polish·Critic·Checklist·Norman·Microcopy·States·Form·HEART·PURE·Cognitive Walkthrough·Dark Pattern·UX Flow·Toss·CEO·JTBD) + design-review-all wrapper (5×N wave dispatch + snapshot 캐싱 + conditional pre-skip + 180s timeout = rate limit 0건) + annotate-design (Pencil/Figma 캔버스에 severity 3컬럼 코멘트 패널 + SourceRail chip + After 시각 mockup 부착)",
-      "version": "2.0.1",
+      "description": "24 design review rubrics (UI L0 10 / UX L1 6 / UX L2 6 / Strategy L5 2: Nielsen·Laws of UX·IxDF·Polaris·Tufte·WCAG·Gestalt·Erik Kennedy·Token Drift·Polish·Critic·Checklist·Norman·Microcopy·States·Form·HEART·PURE·Cognitive Walkthrough·Dark Pattern·UX Flow·Toss·CEO·JTBD) + 2 multi-level wrappers (design-review-all 24-skill full + design-review-essential 14-skill validated core) + annotate-design (Pencil/Figma 캔버스에 severity 3컬럼 코멘트 패널 + SourceRail chip + After 시각 mockup 부착)",
+      "version": "2.0.2",
       "source": "./"
     }
   ],
-  "version": "2.0.1"
+  "version": "2.0.2"
 }

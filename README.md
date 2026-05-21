@@ -7,12 +7,13 @@ Claude Code 디자인 리뷰 + 어노테이션 스킬 모음. **Pencil(.pen)** �
 | 카테고리 | 스킬 수 | 용도 |
 |---|---|---|
 | 디자인 리뷰 (정적 분석) | 23 | 프레임을 rubric 기반으로 분석 → 한국어 마크다운 리뷰 보고서 생성 (L0 UI 10 / L1 UX 6 / L2 UX 5 / L5 Strategy 2) |
-| 멀티 레벨 wrapper | 1 | 23개 rubric 5×N wave dispatch → L0 Surface·L1 Skeleton·L2 Structure·L5 Strategy 동시 집계 (rate limit 0건 · ~21분 wall-clock) |
+| 멀티 레벨 wrapper | 2 | `design-review-all` (24개 rubric 5×N wave · rate limit 0건 · ~21분) · `design-review-essential` (14개 검증 rubric · ~10분 sanity check) |
 | 어노테이션 | 1 | 리뷰 .md (개별/집계) → 캔버스 옆 severity 3컬럼 코멘트 패널 + SourceRail chip + After 시각 mockup 자동 부착 |
 
 ## v2.0.1 핵심 변경 (2026-05-21)
 
 - **스킬 +1**: `design-ux-toss-review` 추가 (L2 Structure) — Toss 「Apps in Toss」 가이드 직격
+- **wrapper +1**: `design-review-essential` 추가 — 14개 검증 스킬 (review-all 1/3 버전, ~10분 sanity check)
 - **출처**: [Apps in Toss · Consumer UX Guide](https://developers-apps-in-toss.toss.im/design/consumer-ux-guide.html) · [UX Writing Guide](https://developers-apps-in-toss.toss.im/design/ux-writing.html)
 - **rubric**: Consumer UX Dark Pattern 5룰 (DP-1~5) + UX Writing 5원칙+보조 (W-1~5 + W-Aux) = 10 항목
 - **헤드라인**: Toss Compliance Grade (A-F) + Dark Pattern Health + Writing Health + Toss Approval Likelihood
@@ -98,7 +99,7 @@ Claude Code 디자인 리뷰 + 어노테이션 스킬 모음. **Pencil(.pen)** �
 | `design-ceo-review` | CEO/founder 10 전략 항목 (Premise·Leverage·Dream·KPI·Scope·자산 등) | gstack `/plan-ceo-review` 기반 |
 | `design-ux-jtbd-review` | Jobs-To-Be-Done 5 lens + 4 Forces of Progress | Clayton Christensen |
 
-## 멀티 레벨 wrapper (1)
+## 멀티 레벨 wrapper (2)
 
 ### `design-review-all`
 
@@ -136,6 +137,20 @@ Wave 5 (light): ui-erik-kennedy
 /design-review-all ~/myapp.pen
 /design-review-all https://figma.com/design/abc?node-id=42-1024 --skip design-ui-tufte-dataviz-review
 /design-review-all ~/myapp.pen --only design-ui-wcag-review,design-ui-polaris-ecommerce-review
+```
+
+### `design-review-essential`
+
+14개 핵심 스킬만 선별한 **review-all 1/3 버전**. broad coverage + validated quality 기준으로 신규/niche 제외, 검증된 광범위 rubric 만 사용. L0 UI(5) + L1 UX(3) + L2 UX(2) + L5 Strategy(1) + 도메인 특화(3, Polaris·Checklist·Toss 포함) 총 14개 병렬 dispatch + 통합 요약.
+
+언제 써:
+- 빠른 다층 sanity check (~10분, review-all 의 1/3 wall-clock)
+- 검증된 rubric 만 — 실험적·niche 스킬 제외 원할 때
+- 프레임 review milestone 직전 standard pass
+
+```
+/design-review-essential ~/myapp.pen
+/design-review-essential https://figma.com/design/abc?node-id=42-1024
 ```
 
 ## 어노테이션 스킬 (1)

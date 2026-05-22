@@ -1,18 +1,18 @@
 ---
 name: design-review-all
 review-level: Multi-Level Aggregate
-description: "[Multi-Level] Figma URL 또는 Pencil(.pen) 파일의 선택된 프레임에 대해 design-{ui,ux,ceo}-*-review 24개 스킬을 5×N wave 로 분할 dispatch (rate limit 회피) + Pencil/Figma snapshot 1회 캐싱 + conditional 사전 skip 으로 L0 Surface(UI 10) + L1 Skeleton(UX 6) + L2 Structure(UX 6) + L5 Strategy(CEO+JTBD 2) 한국어 리뷰 보고서 + 통합 집계 출력. 사용자가 \"전체 디자인 리뷰\", \"all design review\", \"풀 리뷰\", \"design audit all\", \"design-review-all\", \"/design-review-all\" 를 말하거나 figma.com/design URL 또는 .pen 파일로 다층(L0-L5) 디자인 검토를 한 번에 요청할 때 사용."
+description: "[Multi-Level] Figma URL 또는 Pencil(.pen) 파일의 선택된 프레임에 대해 design-{ui,ux,ceo}-*-review 25개 스킬을 5×N wave 로 분할 dispatch (rate limit 회피) + Pencil/Figma snapshot 1회 캐싱 + conditional 사전 skip 으로 L0 Surface(UI 10) + L1 Skeleton(UX 7) + L2 Structure(UX 6) + L5 Strategy(CEO+JTBD 2) 한국어 리뷰 보고서 + 통합 집계 출력. 사용자가 \"전체 디자인 리뷰\", \"all design review\", \"풀 리뷰\", \"design audit all\", \"design-review-all\", \"/design-review-all\" 를 말하거나 figma.com/design URL 또는 .pen 파일로 다층(L0-L5) 디자인 검토를 한 번에 요청할 때 사용."
 ---
 
 # design-review-all
 
 **Review Level**: Multi-Level Aggregate — L0 Surface + L1 Skeleton + L2 Structure + L5 Strategy 동시 실행.
 
-24개 `design-*-review` 스킬을 병렬 서브에이전트로 dispatch 하는 wrapper 스킬. 각 에이전트는 독립적으로 해당 rubric 평가를 수행하고 `./design-reviews/*.md` 보고서를 생성한다. 본 스킬은 dispatch + 결과 집계만 담당하며 평가 로직은 추가하지 않는다.
+25개 `design-*-review` 스킬을 병렬 서브에이전트로 dispatch 하는 wrapper 스킬. 각 에이전트는 독립적으로 해당 rubric 평가를 수행하고 `./design-reviews/*.md` 보고서를 생성한다. 본 스킬은 dispatch + 결과 집계만 담당하며 평가 로직은 추가하지 않는다.
 
 평가 렌즈 = "이 디자인을 모든 추상화 단계(시각 → 스켈레톤 → 구조 → 전략)에서 동시에 진단한다."
 
-## 대상 스킬 (24개)
+## 대상 스킬 (25개)
 
 ### UI L0 Surface (10)
 
@@ -27,7 +27,7 @@ description: "[Multi-Level] Figma URL 또는 Pencil(.pen) 파일의 선택된 �
 9. `design-ui-polaris-ecommerce-review` — Shopify Polaris 셀러 admin 7 카테고리
 10. `design-ui-erik-kennedy-review` — Learn UI Design 7 핵심 룰 (typo/grid/whitespace/contrast)
 
-### UX L1 Skeleton (6)
+### UX L1 Skeleton (7)
 
 11. `design-ux-lawsofux-review` — Laws of UX 행동·인지 23개
 12. `design-ux-nielsen-review` — Nielsen UX 9개 휴리스틱
@@ -35,20 +35,21 @@ description: "[Multi-Level] Figma URL 또는 Pencil(.pen) 파일의 선택된 �
 14. `design-ux-norman-review` — Don Norman 6 개념 + 7 Stages + Gulf 측정
 15. `design-ux-form-review` — Adam Silver Form Design Patterns 12 lens (conditional — 폼 frame 있을 때만)
 16. `design-ux-states-review` — Loading/Empty/Error/Success/Offline/Permission/Stale 7 state × 3 sub = 21
+17. `design-ux-toss-distilled-review` — Toss 가이드 + tossinvest.com 실측 distill 21 추상 UX 원칙 (14 카테고리)
 
 ### UX L2 Structure (6)
 
-17. `design-ux-flow-review` — 6 Lens × 36 항목 flow/IA/state/dark/conversion/habit
-18. `design-ux-dark-pattern-review` — Brignull 12 dark pattern + 규제 매핑
-19. `design-ux-cognitive-walkthrough-review` — Lewis & Polson CW 4Q + Streamlined CW + Gulf (conditional — multi-frame 시만)
-20. `design-ux-pure-review` — NN/g PURE task usability 정량 점수
-21. `design-ux-heart-review` — Google HEART (Happiness/Engagement/Adoption/Retention/Task) + GSM
-22. `design-ux-toss-review` — Toss 「Apps in Toss」 가이드 10룰 (Consumer UX DP 5 + UX Writing 5) · L1-L2 hybrid
+18. `design-ux-flow-review` — 6 Lens × 36 항목 flow/IA/state/dark/conversion/habit
+19. `design-ux-dark-pattern-review` — Brignull 12 dark pattern + 규제 매핑
+20. `design-ux-cognitive-walkthrough-review` — Lewis & Polson CW 4Q + Streamlined CW + Gulf (conditional — multi-frame 시만)
+21. `design-ux-pure-review` — NN/g PURE task usability 정량 점수
+22. `design-ux-heart-review` — Google HEART (Happiness/Engagement/Adoption/Retention/Task) + GSM
+23. `design-ux-toss-review` — Toss 「Apps in Toss」 가이드 10룰 (Consumer UX DP 5 + UX Writing 5) · L1-L2 hybrid
 
 ### Strategy L5 (2)
 
-23. `design-ceo-review` — CEO 전략 10항목
-24. `design-ux-jtbd-review` — Jobs-To-Be-Done 5 lens + 4 Forces
+24. `design-ceo-review` — CEO 전략 10항목
+25. `design-ux-jtbd-review` — Jobs-To-Be-Done 5 lens + 4 Forces
 
 ## When to Use
 
@@ -67,7 +68,7 @@ description: "[Multi-Level] Figma URL 또는 Pencil(.pen) 파일의 선택된 �
 
 ## Prerequisites — MCP 연결 체크 (필수)
 
-대상 24개 스킬 모두 동일 입력 (Figma URL 또는 .pen) 사용. 본 스킬은 dispatch 전에 한 번만 체크:
+대상 25개 스킬 모두 동일 입력 (Figma URL 또는 .pen) 사용. 본 스킬은 dispatch 전에 한 번만 체크:
 
 | 입력 타입 | 필수 MCP 도구 prefix | 미연결 시 안내 |
 |----------|---------------------|--------------|
@@ -105,7 +106,7 @@ Prerequisites 표 기준 ToolSearch. 미연결이면 종료.
 
 ### Step 2.5 — Snapshot 사전 캐싱 + Conditional 사전 감지 (최적화)
 
-**목적**: 24 서브에이전트가 동일 Pencil/Figma 데이터를 24회 중복 fetch 하는 것을 방지 + 적용 불가 스킬을 dispatch 단계에서 제거.
+**목적**: 25 서브에이전트가 동일 Pencil/Figma 데이터를 25회 중복 fetch 하는 것을 방지 + 적용 불가 스킬을 dispatch 단계에서 제거.
 
 **A. Pencil 단일 snapshot dump** (입력이 .pen 일 때):
 
@@ -135,14 +136,14 @@ snapshot 내용 검사로 dispatch 전에 skip 처리:
 
 ### Step 3 — 실행 대상 스킬 목록 확정
 
-기본 24개 - `--skip` 제외 + `--only` 필터링 + **Step 2.5 conditional pre-skip** → 최종 실행 목록 N개.
+기본 25개 - `--skip` 제외 + `--only` 필터링 + **Step 2.5 conditional pre-skip** → 최종 실행 목록 N개.
 
 사용자에게 출력:
 - 입력 소스
 - 실행 대상 스킬 N개 목록 (사전 skip 표시)
 - 사전 skip 스킬 수와 사유
 - 예상 소요 시간 안내: 5×ceil(N/5) wave (각 wave ~3-4분, wave 간 30s 쿨다운) = **wall-clock ~ (3.5분 × wave 수) + (30s × (wave 수 - 1))**
-  - 예: N=21 → 5 wave → ~17.5분 + 2분 쿨다운 ≈ ~19분 (rate limit 0건 보장)
+  - 예: N=23 → 5 wave → ~17.5분 + 2분 쿨다운 ≈ ~19분 (rate limit 0건 보장)
   - 예: N=13 (essential) → 3 wave → ~10.5분 + 1분 = ~11.5분
 
 ### Step 4 — Wave dispatch (rate limit 회피 핵심)
@@ -157,14 +158,14 @@ snapshot 내용 검사로 dispatch 전에 skip 처리:
 3. conditional 스킬 (form, CW) 은 사전 skip 처리되어 wave 진입 안함
 4. light skill (ui-erik-kennedy, ui-gestalt, ui-ixdf, ux-microcopy) 은 마지막 wave 배치 가능 — short critical path
 
-**예시 wave 구성 (N=21, 5 wave)**:
+**예시 wave 구성 (N=23, 5 wave)**:
 
 ```
 Wave 1 (heavy 1): ui-token-drift · ux-flow · ceo · ui-tufte-dataviz · ux-lawsofux
 Wave 2 (heavy 2): ui-wcag · ux-norman · ux-dark-pattern · ux-jtbd · ui-critic
 Wave 3 (heavy 1): ui-checklist · ux-pure · ux-heart · ui-polaris · ux-nielsen
 Wave 4 (heavy 1): ui-polish · ux-states · ui-gestalt · ui-ixdf · ux-microcopy
-Wave 5 (light): ui-erik-kennedy
+Wave 5 (light): ui-erik-kennedy · ux-toss-distilled · ux-toss
 ```
 
 **Wave dispatch 패턴 (각 wave 단일 메시지 내 5개 Agent call)**:
@@ -271,7 +272,7 @@ TIMEOUT: 180s hard. Exceeded → return error JSON.
 
 콘솔 출력:
 - 집계 보고서 경로 (1개)
-- 개별 24개 보고서 경로 목록
+- 개별 25개 보고서 경로 목록
 - 레벨별 grade 요약 테이블
 - 통합 finding 수 + 중복도 Top 3 한 줄 미리보기
 - 실패한 스킬 (있으면)
@@ -288,7 +289,7 @@ TIMEOUT: 180s hard. Exceeded → return error JSON.
 - 입력 소스: {Figma URL | .pen path}
 - 프레임: {nodeId / frame.name}
 - 리뷰 일시: {YYYY-MM-DD HH:mm KST}
-- 실행 스킬: {N}/24
+- 실행 스킬: {N}/25
 - 성공: {n} · 실패: {n} · 스킵: {n}
 - 총 wall-clock: {대략}분
 - 원본 finding 수: {raw}건 → dedupe 후 {unique}건 (병합률 {pct}%)
@@ -312,7 +313,7 @@ TIMEOUT: 180s hard. Exceeded → return error JSON.
 
 L0 평균 점수: {N}/10 · L0 critical 총합: {n}
 
-### L1 Skeleton (UX 6개)
+### L1 Skeleton (UX 7개)
 
 | 스킬 | Grade | Score | critical | warning | info | 한 줄 요약 |
 |------|-------|-------|----------|---------|------|-----------|
@@ -322,10 +323,11 @@ L0 평균 점수: {N}/10 · L0 critical 총합: {n}
 | design-ux-norman-review | - | - | - | - | - | - |
 | design-ux-form-review | - | - | - | - | - | - |
 | design-ux-states-review | - | - | - | - | - | - |
+| design-ux-toss-distilled-review | - | - | - | - | - | - |
 
 L1 평균: {N}/10 · L1 critical 총합: {n}
 
-### L2 Structure (UX 5개)
+### L2 Structure (UX 6개)
 
 | 스킬 | Grade | Score | critical | warning | info | 한 줄 요약 |
 |------|-------|-------|----------|---------|------|-----------|
@@ -334,6 +336,7 @@ L1 평균: {N}/10 · L1 critical 총합: {n}
 | design-ux-cognitive-walkthrough-review | - | - | - | - | - | - |
 | design-ux-pure-review | - | - | - | - | - | - |
 | design-ux-heart-review | - | - | - | - | - | - |
+| design-ux-toss-review | - | - | - | - | - | - |
 
 L2 평균: {N}/10 · L2 critical 총합: {n}
 
@@ -349,7 +352,7 @@ L2 평균: {N}/10 · L2 critical 총합: {n}
 - **레벨 간 분포**: L0 {N} / L1 {N} / L2 {N} / L5 {N}
 - **최약 레벨**: {레벨명} ({이유 — 가장 점수 낮은 곳})
 - **최강 레벨**: {레벨명}
-- **critical 총합**: {n}건 (across 24 skills)
+- **critical 총합**: {n}건 (across 25 skills)
 - **identity verdict** (L5 CEO 결과): {product | placeholder | ambiguous}
 - **ethics flag** (L2 Dark Pattern): {⚠️ N건 | ✅ 위반 없음 | N/A}
 
@@ -425,7 +428,7 @@ L5 critical > L2 Dark Pattern > L1 critical > L0 critical 순으로 cross-skill 
 ```
 /design-review-all ~/Desktop/projects/design/test.pen
 ```
-→ Pencil MCP 체크 → 24개 스킬 병렬 dispatch → 24개 + 1개 집계 보고서 생성
+→ Pencil MCP 체크 → 25개 스킬 병렬 dispatch → 25개 + 1개 집계 보고서 생성
 
 ### 예시 2 — UI L0 만 (시각 폴리시 4개)
 ```
@@ -437,13 +440,13 @@ L5 critical > L2 Dark Pattern > L1 critical > L0 critical 순으로 cross-skill 
 ```
 /design-review-all https://www.figma.com/design/abc/Shop?node-id=42-1024 --goal "결제 완료" --lens A,C,D,E
 ```
-→ 24개 스킬 병렬, flow review 는 사용자 goal/lens 적용 (form-review 도 폼이 있으면 자동 실행)
+→ 25개 스킬 병렬, flow review 는 사용자 goal/lens 적용 (form-review 도 폼이 있으면 자동 실행)
 
 ### 예시 4 — UX 만 (L1+L2)
 ```
-/design-review-all ~/myapp.pen --only design-ux-lawsofux-review,design-ux-nielsen-review,design-ux-microcopy-review,design-ux-norman-review,design-ux-form-review,design-ux-states-review,design-ux-flow-review,design-ux-dark-pattern-review,design-ux-cognitive-walkthrough-review,design-ux-pure-review,design-ux-heart-review
+/design-review-all ~/myapp.pen --only design-ux-lawsofux-review,design-ux-nielsen-review,design-ux-microcopy-review,design-ux-norman-review,design-ux-form-review,design-ux-states-review,design-ux-toss-distilled-review,design-ux-flow-review,design-ux-dark-pattern-review,design-ux-cognitive-walkthrough-review,design-ux-pure-review,design-ux-heart-review,design-ux-toss-review
 ```
-→ L1+L2 UX 11개만 실행
+→ L1+L2 UX 13개만 실행
 
 ### 예시 5 — a11y + Polaris 셀러 admin
 ```
@@ -463,7 +466,7 @@ L5 critical > L2 Dark Pattern > L1 critical > L0 critical 순으로 cross-skill 
 - 본 스킬 자체는 finding 을 생성하지 않음 (집계 + dedupe 만)
 - 개별 보고서 경로/포맷은 각 하위 스킬 규약 그대로
 - 집계 보고서 **1개**: `./design-reviews/design-review-all-{frame-slug}-{YYYYMMDD-HHmm}.md`
-  - 레벨별 요약 테이블 (L0 10 + L1 6 + L2 6 + L5 2 = 24개) + 통합 finding (dedupe + source tag) + 우선순위 + 원본 매핑 한 파일
+  - 레벨별 요약 테이블 (L0 10 + L1 7 + L2 6 + L5 2 = 25개) + 통합 finding (dedupe + source tag) + 우선순위 + 원본 매핑 한 파일
 - 통합 finding 라인 포맷 **엄격**: `{N}. [{HIGH|MID|LOW}][{title}] {요약} [{src1}][{src2}]...`
   - title ≤ 60자
   - 요약 ≤ 140자 (단일 라인 강제, 줄바꿈 금지)
@@ -480,22 +483,22 @@ L5 critical > L2 Dark Pattern > L1 critical > L0 critical 순으로 cross-skill 
 |---|--------|------|
 | 1 | Wave dispatch 5×N (Step 4) | rate limit 0건 보장, 재시도 사이클 제거 |
 | 2 | Conditional pre-skip (Step 2.5C) | form / CW dispatch 회피 → wall-clock ~6분 절약 |
-| 3 | Pencil/Figma snapshot 1회 캐싱 (Step 2.5A·B) | 24회 중복 fetch 제거 → 토큰 ~25% 감소 |
-| 4 | Schema 1회 inject (`include_schema: false`) | 24 × ~8k 토큰 중복 제거 |
+| 3 | Pencil/Figma snapshot 1회 캐싱 (Step 2.5A·B) | 25회 중복 fetch 제거 → 토큰 ~25% 감소 |
+| 4 | Schema 1회 inject (`include_schema: false`) | 25 × ~8k 토큰 중복 제거 |
 | 5 | 보고서 250라인 cap + finding 25개 cap (출력 규약) | sub-skill 출력 토큰 ~30% 감소 |
 | 6 | Heavy 우선 wave 배치 (Step 4 Wave 구성 규칙) | critical path 단축, wave 5 가 light skill 만 → 마지막 wave ~2분으로 단축 |
 | 7 | Caveman 프롬프트 압축 (Step 4 프롬프트 템플릿) | per-agent 입력 1500자 → 450자 (-30% 입력 토큰) |
 | 8 | 타임아웃 180s hard (Step 4 타임아웃 정책) | hung skill 이 wave 전체 지연 차단, worst-case wall-clock 보장 |
 
-**예상 비용 (Pencil 단일 frame, N=21, 8 최적화 적용)**:
+**예상 비용 (Pencil 단일 frame, N=23, 8 최적화 적용)**:
 - wall-clock: ~16분 (4 heavy wave × ~3.5분 + 1 light wave × ~2분 + 30s × 4 쿨다운)
 - rate limit fail: 0건
 - 입력 토큰: ~200k (snapshot 캐싱 + 프롬프트 압축)
 - 출력 토큰: ~120k (cap 적용)
 - worst-case 보장: 4 × 180s + 30s × 4 + 120s = 14분 (timeout 강제)
 
-**예상 비용 (Pencil 단일 frame, N=24 미적용 baseline)**:
-- wall-clock: ~12-15분 (병렬 24) + retry 사이클 ~5분 → 실측 ~20분
+**예상 비용 (Pencil 단일 frame, N=25 미적용 baseline)**:
+- wall-clock: ~12-15분 (병렬 25) + retry 사이클 ~5분 → 실측 ~20분
 - rate limit fail: ~5건 → 평균 +5분 retry
 - 입력 토큰: ~480k (중복 fetch + 큰 프롬프트)
 - 출력 토큰: ~180k (cap 없음)
@@ -505,11 +508,11 @@ L5 critical > L2 Dark Pattern > L1 critical > L0 critical 순으로 cross-skill 
 
 ## annotate-design 호환성
 
-본 스킬은 24개 개별 .md + 1개 집계 .md 를 생성. 개별 .md 는 해당 하위 스킬의 finding 포맷을 그대로 따르므로 `annotate-design` 으로 처리 가능. 집계 .md 는 dedupe 된 통합 finding 을 포함하지만 annotate-design 파싱 범위 밖 — 의사결정/우선순위용.
+본 스킬은 25개 개별 .md + 1개 집계 .md 를 생성. 개별 .md 는 해당 하위 스킬의 finding 포맷을 그대로 따르므로 `annotate-design` 으로 처리 가능. 집계 .md 는 dedupe 된 통합 finding 을 포함하지만 annotate-design 파싱 범위 밖 — 의사결정/우선순위용.
 
 권장 워크플로:
 ```
-/design-review-all <design 파일>        → 24 + 1개 .md 생성
+/design-review-all <design 파일>        → 25 + 1개 .md 생성
                                            집계 .md 의 통합 finding 목록으로 우선순위 결정
 /annotate-design <개별 review .md>      → 디자인 파일에 코멘트 부착 (스킬별 session-key prefix 자동 결정)
 ```
@@ -531,14 +534,14 @@ L5 critical > L2 Dark Pattern > L1 critical > L0 critical 순으로 cross-skill 
 | Level | 카테고리 | 스킬 수 | 입력 | 핵심 평가 |
 |-------|---------|--------|------|----------|
 | L0 Surface | UI | 10 | frame 1개 | 시각·타이포·컬러·hierarchy·a11y·DS토큰·dataviz |
-| L1 Skeleton | UX | 6 | frame 1개 | 사용성·인지·휴리스틱·마이크로카피·폼·상태 |
+| L1 Skeleton | UX | 7 | frame 1개 | 사용성·인지·휴리스틱·마이크로카피·폼·상태·토스 distilled |
 | L2 Structure | UX Flow/Eval | 6 | frame 시퀀스 / hub | flow·IA·dark·CW·PURE·HEART·Toss |
 | L5 Strategy | CEO + JTBD | 2 | product/frame | 정체성·scope·자산·vision·JTBD·4Forces |
-| **합계** | | **24** | | |
+| **합계** | | **25** | | |
 
-본 스킬은 위 24개를 한 번에 병렬 실행해 전 레이어 점수 분포를 동시에 본다.
+본 스킬은 위 25개를 한 번에 병렬 실행해 전 레이어 점수 분포를 동시에 본다.
 
-## annotate-design 호환 lens chip 매핑 (24개)
+## annotate-design 호환 lens chip 매핑 (25개)
 
 각 하위 스킬 finding 의 `[lens]` chip — annotate-design 이 코멘트 prefix 로 사용:
 
@@ -560,6 +563,7 @@ L5 critical > L2 Dark Pattern > L1 critical > L0 critical 순으로 cross-skill 
 | design-ux-norman-review | `[ux-norman]` |
 | design-ux-form-review | `[ux-form]` |
 | design-ux-states-review | `[ux-states]` |
+| design-ux-toss-distilled-review | `[ux-toss-distilled]` |
 | design-ux-flow-review | `[ux-flow]` |
 | design-ux-dark-pattern-review | `[ux-dark-pattern]` |
 | design-ux-cognitive-walkthrough-review | `[ux-cw]` |

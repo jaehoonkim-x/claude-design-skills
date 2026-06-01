@@ -2,59 +2,61 @@
 name: design-review-essential
 aliases: ["design-review-quick", "design-review-core"]
 review-level: Multi-Level Essential
-description: "[Multi-Level Essential] Figma URL 또는 Pencil(.pen) 파일의 선택된 프레임에 대해 broad coverage + validated quality 기준으로 선별된 14개 핵심 스킬을 병렬 에이전트로 동시 실행. design-review-all(40항목 풀 스킬)의 1/3 버전 — 신규·niche 스킬 제외, 검증된 광범위 rubric 스킬만 사용. L0 Surface UI(5) + L1 Skeleton UX(3) + L2 Structure UX(2) + L5 Strategy(1) + 도메인 특화(3) 총 14개 한국어 리뷰 보고서를 생성하고 통합 요약을 출력. 사용자가 '핵심 디자인 리뷰', 'essential review', 'design-review-essential', '/design-review-essential' 를 말하거나 40개 전체 대신 핵심 스킬만으로 다층 검토를 원할 때 사용."
+description: "[Multi-Level Essential] Figma URL 또는 Pencil(.pen) 파일의 선택된 프레임에 대해 broad coverage + validated quality 기준으로 선별된 12개 핵심 스킬을 병렬 에이전트로 동시 실행. design-review-all(40항목 풀 스킬)의 축약 버전 — 신규·niche·중복 스킬 제외, 검증된 광범위 rubric 스킬만 사용. L0 Surface UI(4) + L1 Skeleton UX(2) + L2 Structure UX(2) + L5 Strategy(1) + 도메인 특화(3) 총 12개 한국어 리뷰 보고서를 생성하고 통합 요약을 출력. 사용자가 '핵심 디자인 리뷰', 'essential review', 'design-review-essential', '/design-review-essential' 를 말하거나 40개 전체 대신 핵심 스킬만으로 다층 검토를 원할 때 사용."
 ---
 
 # design-review-essential
 
-**Review Level**: Multi-Level Essential — broad coverage + validated quality 14개 핵심 스킬.
+**Review Level**: Multi-Level Essential — broad coverage + validated quality 12개 핵심 스킬.
 
 **선정 기준**: broad rubric coverage + validated quality. 단일 메서드(narrow scope) 또는 DS-specific·platform-specific 스킬은 제외. 신규·niche 스킬은 포함하지 않는다.
 
-14개 `design-*-review` 스킬을 병렬 서브에이전트로 dispatch하는 wrapper 스킬. 각 에이전트는 독립적으로 해당 rubric 평가를 수행하고 `./design-reviews/*.md` 보고서를 생성한다. 본 스킬은 dispatch + 결과 집계만 담당하며 평가 로직은 추가하지 않는다.
+12개 `design-*-review` 스킬을 병렬 서브에이전트로 dispatch하는 wrapper 스킬. 각 에이전트는 독립적으로 해당 rubric 평가를 수행하고 `./design-reviews/*.md` 보고서를 생성한다. 본 스킬은 dispatch + 결과 집계만 담당하며 평가 로직은 추가하지 않는다.
 
-## 대상 스킬 (14개)
+## 대상 스킬 (12개)
 
-### L0 Surface UI (5개)
+### L0 Surface UI (4개)
 
 | # | 스킬 | rubric 범위 | 선정 근거 |
 |---|------|-----------|---------|
 | 1 | `design-ui-polish-review` | 10 차원 (Visual Hierarchy·Typography·Color·Spacing·Consistency·Imagery·Layout·Component·Branding·Modern Standards) | UI L0 비대형 umbrella |
-| 2 | `design-ui-critic-review` | 7 lens + AI Slop dual headline (Visual Hierarchy·Typography·Color·Spacing·Interaction States·Content·AI Slop) | broad + AI Slop 감지 |
-| 3 | `design-ui-tufte-dataviz-review` | Tufte 10 + AG Grid 10 = 20 항목 | stat-front AG Grid 35+ 직격 |
-| 4 | `design-ui-refactoring-review` | 8 챕터 + 50+ 룰 (Schoger/Wathan) | Tailwind/shadcn 실전 |
-| 5 | `design-ui-wcag-review` | WCAG 2.2 78 SC × 4 원칙 | a11y umbrella |
+| 2 | `design-ui-tufte-dataviz-review` | Tufte 10 + AG Grid 10 = 20 항목 | stat-front AG Grid 35+ 직격 |
+| 3 | `design-ui-refactoring-review` | 8 챕터 + 50+ 룰 (Schoger/Wathan) | Tailwind/shadcn 실전 |
+| 4 | `design-ui-wcag-review` | WCAG 2.2 78 SC × 4 원칙 | a11y umbrella |
 
-### L1 Skeleton UX (3개)
+### L1 Skeleton UX (2개)
 
 | # | 스킬 | rubric 범위 | 선정 근거 |
 |---|------|-----------|---------|
-| 6 | `design-ux-nielsen-review` | Nielsen 9 휴리스틱 | UX 정통 — broad validated |
-| 7 | `design-ux-ixdf-review` | IxDF UX 12 항목 (5 Factors + 4 Usability + Words + Behavior) | broad UX framework |
-| 8 | `design-ux-lawsofux-review` | 23 행동·인지 법칙 | 인지/행동 광범위 커버 |
+| 5 | `design-ux-nielsen-review` | Nielsen 9 휴리스틱 | UX 정통 — broad validated |
+| 6 | `design-ux-lawsofux-review` | 23 행동·인지 법칙 | 인지/행동 광범위 커버 |
 
 ### L2 Structure UX (2개)
 
 | # | 스킬 | rubric 범위 | 선정 근거 |
 |---|------|-----------|---------|
-| 9 | `design-ux-flow-review` | 6 lens × 36 항목 (flow type 자동 분류) | flow/IA/state/dark/conversion/habit |
-| 10 | `design-ux-states-review` | 21 항목 (7 state × 3 sub) | edge state 전체 커버 |
+| 7 | `design-ux-flow-review` | 6 lens × 36 항목 (flow type 자동 분류) | flow/IA/state/dark/conversion/habit |
+| 8 | `design-ux-states-review` | 21 항목 (7 state × 3 sub) | edge state 전체 커버 |
 
 ### L5 Strategy (1개)
 
 | # | 스킬 | rubric 범위 | 선정 근거 |
 |---|------|-----------|---------|
-| 11 | `design-ceo-review` | 10 전략 항목 (Premise·Leverage·Dream·KPI·Scope·Identity·State·Brand·Affordance·Hygiene) | 제품 전략 broad umbrella |
+| 9 | `design-ceo-review` | 10 전략 항목 (Premise·Leverage·Dream·KPI·Scope·Identity·State·Brand·Affordance·Hygiene) | 제품 전략 broad umbrella |
 
 ### 도메인 특화 (3개)
 
 | # | 스킬 | rubric 범위 | 선정 근거 |
 |---|------|-----------|---------|
-| 12 | `design-ui-polaris-ecommerce-review` | Shopify Polaris 7 카테고리 — 셀러/관리자 admin 직격 | 셀러 admin 도메인 (stat-front 직격) |
-| 13 | `design-ui-checklist-review` | 56 concrete 체크리스트 (page/component/flow) | 전 층위 구체 체크 |
-| 14 | `design-ux-toss-review` | 토스 Apps in Toss 가이드 (Dark Pattern 5 + UX Writing 5) | 한국어 마이크로카피 톤 + 토스 입점 컴플라이언스 — 한국 서비스 도메인 |
+| 10 | `design-ui-polaris-ecommerce-review` | Shopify Polaris 7 카테고리 — 셀러/관리자 admin 직격 | 셀러 admin 도메인 (stat-front 직격) |
+| 11 | `design-ui-checklist-review` | 56 concrete 체크리스트 (page/component/flow) | 전 층위 구체 체크 |
+| 12 | `design-ux-toss-review` | 토스 Apps in Toss 가이드 (Dark Pattern 5 + UX Writing 5) | 한국어 마이크로카피 톤 + 토스 입점 컴플라이언스 — 한국 서비스 도메인 |
 
 ### 제외 사유
+
+**중복 (redundant — unique finding 0, 다른 스킬에 완전 흡수)**:
+- `design-ui-critic-review` (시각 폴리시·AI Slop) → `design-ui-polish-review` 가 동일 항목 커버
+- `design-ux-ixdf-review` (IxDF) → polish + nielsen + ceo 에 완전 흡수
 
 **narrow scope (단일 메서드)**:
 - microcopy / form / norman / cognitive-walkthrough / jtbd / sus / pure / bastien-scapin / gestalt / shneiderman / rams / vignelli / erik-kennedy / heart / dark-pattern
@@ -69,7 +71,7 @@ description: "[Multi-Level Essential] Figma URL 또는 Pencil(.pen) 파일의 �
 
 | 항목 | design-review-essential | design-review-all |
 |------|------------------------|------------------|
-| 스킬 수 | **14개** | 34개 |
+| 스킬 수 | **12개** | 34개 |
 | 예상 wall-clock | **~2-4분** | ~5-10분 |
 | 선정 기준 | **broad coverage + validated** | 전체 |
 | 신규·niche 스킬 | **제외** | 포함 |
@@ -110,20 +112,38 @@ description: "[Multi-Level Essential] Figma URL 또는 Pencil(.pen) 파일의 �
 
 ## Workflow
 
-### Step 1 — 입력 파싱 + 타입 라우팅
+### Step 1 — 입력 파싱 + 타입 라우팅 (다중 입력 지원)
 
-사용자 인자에서 입력 타입 자동 감지:
+사용자 인자에서 **위치 인자(공백 구분)를 모두 수집** → 입력 리스트 `[INPUT_1, INPUT_2, ...]`. 각 입력 타입 자동 감지:
 
 - `figma.com/design/:fileKey/...?node-id=:nodeId` → **Figma 경로**
 - `*.pen` 로컬 경로 → **Pencil 경로**
-- 둘 다 아니면: "입력은 figma.com URL 또는 .pen 파일 경로여야 합니다." 출력 후 종료
+- 위 둘 다 아닌 위치 인자 → 안내 출력 후 해당 입력만 제외 (나머지는 계속)
+- 유효 입력 0개면 종료
 
-옵션 인자 처리:
+옵션 인자 처리 (`--` 로 시작, **모든 입력에 공통 적용**):
 
 - `--skip <skill1,skill2,...>`: 특정 스킬 제외 (콤마 구분). 예: `--skip design-ui-tufte-dataviz-review`
 - `--only <skill1,skill2,...>`: 지정 스킬만 실행 (whitelist). `--skip` 과 동시 사용 시 `--only` 우선
 - `--goal "{task goal}"`: `design-ux-flow-review` 에 전달
 - `--lens A,B,C`: `design-ux-flow-review` 에 전달
+
+유효 입력이 1개면 Step 2 직행. **2개 이상이면 Step 1.5 순차 루프**.
+
+### Step 1.5 — 다중 입력 순차 실행 (입력 2개 이상)
+
+입력 리스트를 **순차(sequential) 처리** — ⚠️ **입력 간 병렬 금지**. 입력마다 내부에서 N개 병렬 dispatch 가 돌므로, 입력까지 병렬하면 동시 요청 폭증 → `Server is temporarily limiting requests` rate limit. 반드시 한 입력 완료 후 다음.
+
+각 입력 `INPUT_i` (i = 1..N) 에 대해:
+
+1. **Step 2~7 을 `INPUT_i` 단일 입력으로 완전 실행** (MCP 체크 → 병렬 dispatch → 수집 → 집계 → 출력).
+2. 입력 `i` 의 집계 .md 완료 + 콘솔 요약 출력 확인 **후** 다음 입력 `i+1` 시작. 이전 입력 미완 시 다음 진입 금지.
+3. 입력 간 30s 쿨다운 (TPM 버킷 회복).
+
+모든 입력 완료 후 **마스터 인덱스 .md** 1개 생성:
+`./design-reviews/design-review-essential-INDEX-{YYYYMMDD-HHmm}.md` — 입력별 집계 보고서 경로 + 입력별 5개 sub-score 한 줄씩 (입력 N개 한눈 비교용).
+
+콘솔에는 입력 단위 진행 출력: `[2/5] {frame-slug} 리뷰 시작...`.
 
 ### Step 2 — MCP 사전 체크
 
@@ -131,12 +151,12 @@ Prerequisites 표 기준 ToolSearch. 미연결이면 종료.
 
 ### Step 3 — 실행 대상 스킬 목록 확정
 
-기본 14개 - `--skip` 제외 + `--only` 필터링 → 최종 실행 목록 N개 (1 ≤ N ≤ 14).
+기본 12개 - `--skip` 제외 + `--only` 필터링 → 최종 실행 목록 N개 (1 ≤ N ≤ 12).
 
 사용자에게 출력:
 - 입력 소스
 - 실행 대상 스킬 N개 목록 (레이어별 분류)
-- 예상 소요 시간 안내 (각 스킬 1-3분 / 병렬 14개 동시 = wall-clock ~2-4분)
+- 예상 소요 시간 안내 (각 스킬 1-3분 / 병렬 12개 동시 = wall-clock ~2-4분)
 
 ### Step 4 — 병렬 dispatch (핵심)
 
@@ -145,6 +165,7 @@ Prerequisites 표 기준 ToolSearch. 미연결이면 종료.
 각 에이전트:
 
 - `subagent_type: "general-purpose"` (또는 `oh-my-claudecode:executor`)
+- **`model: "sonnet"`** — 모든 design-review 서브에이전트는 sonnet 으로 실행 (정적 rubric 평가는 sonnet 충분, 비용/속도 최적). 메인 스레드 모델 무관하게 고정.
 - `description`: `"Design review: {skill-name}"` (3-5 단어)
 - `prompt`: 아래 템플릿
 
@@ -179,24 +200,21 @@ Instructions:
 Do NOT include any prose outside the JSON. If the skill returns multiple per-frame reports, list all paths in report_paths.
 ```
 
-**Dispatch 패턴 (단일 메시지에 N개 Agent tool call):**
+**Dispatch 패턴 (단일 메시지에 N개 Agent tool call, 전부 `model: "sonnet"`):**
 
 ```
-Agent({ description: "Design review: ui-polish", subagent_type: "general-purpose", prompt: "..." })
-Agent({ description: "Design review: ui-critic", subagent_type: "general-purpose", prompt: "..." })
-Agent({ description: "Design review: ui-tufte-dataviz", subagent_type: "general-purpose", prompt: "..." })
-Agent({ description: "Design review: ui-refactoring", subagent_type: "general-purpose", prompt: "..." })
-Agent({ description: "Design review: ui-wcag", subagent_type: "general-purpose", prompt: "..." })
-Agent({ description: "Design review: ux-nielsen", subagent_type: "general-purpose", prompt: "..." })
-Agent({ description: "Design review: ux-ixdf", subagent_type: "general-purpose", prompt: "..." })
-Agent({ description: "Design review: ux-lawsofux", subagent_type: "general-purpose", prompt: "..." })
-Agent({ description: "Design review: ux-flow", subagent_type: "general-purpose", prompt: "..." })
-Agent({ description: "Design review: ux-states", subagent_type: "general-purpose", prompt: "..." })
-Agent({ description: "Design review: ceo", subagent_type: "general-purpose", prompt: "..." })
-Agent({ description: "Design review: ui-polaris-ecommerce", subagent_type: "general-purpose", prompt: "..." })
-Agent({ description: "Design review: ui-checklist", subagent_type: "general-purpose", prompt: "..." })
-Agent({ description: "Design review: ux-toss", subagent_type: "general-purpose", prompt: "..." })
-... (총 N개, 단일 응답 메시지 안에 동시)
+Agent({ description: "Design review: ui-polish", subagent_type: "general-purpose", model: "sonnet", prompt: "..." })
+Agent({ description: "Design review: ui-tufte-dataviz", subagent_type: "general-purpose", model: "sonnet", prompt: "..." })
+Agent({ description: "Design review: ui-wcag", subagent_type: "general-purpose", model: "sonnet", prompt: "..." })
+Agent({ description: "Design review: ux-nielsen", subagent_type: "general-purpose", model: "sonnet", prompt: "..." })
+Agent({ description: "Design review: ux-lawsofux", subagent_type: "general-purpose", model: "sonnet", prompt: "..." })
+Agent({ description: "Design review: ux-flow", subagent_type: "general-purpose", model: "sonnet", prompt: "..." })
+Agent({ description: "Design review: ux-states", subagent_type: "general-purpose", model: "sonnet", prompt: "..." })
+Agent({ description: "Design review: ceo", subagent_type: "general-purpose", model: "sonnet", prompt: "..." })
+Agent({ description: "Design review: ui-polaris-ecommerce", subagent_type: "general-purpose", model: "sonnet", prompt: "..." })
+Agent({ description: "Design review: ui-checklist", subagent_type: "general-purpose", model: "sonnet", prompt: "..." })
+Agent({ description: "Design review: ux-toss", subagent_type: "general-purpose", model: "sonnet", prompt: "..." })
+... (총 N개, 단일 응답 메시지 안에 동시, 전부 model: "sonnet")
 ```
 
 ### Step 5 — 결과 수집 + 검증
@@ -236,8 +254,8 @@ Agent({ description: "Design review: ux-toss", subagent_type: "general-purpose",
 
 | sub-score | 구성 스킬 | 산출 방식 |
 |-----------|---------|---------|
-| **L0 UI 평균** | ui-polish + ui-critic + ui-tufte-dataviz + ui-refactoring | 4개 headline_score 산술 평균 |
-| **L1 UX 평균** | ux-nielsen + ux-ixdf + ux-lawsofux | 3개 headline_score 산술 평균 |
+| **L0 UI 평균** | ui-polish + ui-tufte-dataviz + ui-refactoring | 3개 headline_score 산술 평균 |
+| **L1 UX 평균** | ux-nielsen + ux-lawsofux | 2개 headline_score 산술 평균 |
 | **L2 구조 평균** | ux-flow + ux-states | 2개 headline_score 산술 평균 |
 | **L5 전략** | ceo | headline_score 그대로 |
 | **도메인 평균** | ui-polaris-ecommerce + ui-checklist + ux-toss | 3개 headline_score 산술 평균 (ux-toss 는 TCG = (DPH·0.6 + WH·0.4) 사용) |
@@ -247,7 +265,7 @@ Agent({ description: "Design review: ux-toss", subagent_type: "general-purpose",
 
 콘솔 출력:
 - 집계 보고서 경로 (1개)
-- 개별 14개 보고서 경로 목록
+- 개별 12개 보고서 경로 목록
 - 5개 sub-score 요약 테이블
 - 통합 finding 수 + 중복도 Top 3 한 줄 미리보기
 - 실패한 스킬 (있으면)
@@ -283,22 +301,20 @@ Agent({ description: "Design review: ux-toss", subagent_type: "general-purpose",
 
 ## 레이어별 상세 헤드라인
 
-### L0 Surface UI (5개)
+### L0 Surface UI (4개)
 
 | 스킬 | Grade | Score | critical | warning | 한 줄 요약 |
 |------|-------|-------|----------|---------|-----------|
 | design-ui-polish-review | - | - | - | - | - |
-| design-ui-critic-review | - | - | - | - | - |
 | design-ui-tufte-dataviz-review | - | - | - | - | - |
 | design-ui-refactoring-review | - | - | - | - | - |
 | design-ui-wcag-review | - | - | - | - | - |
 
-### L1 Skeleton UX (3개)
+### L1 Skeleton UX (2개)
 
 | 스킬 | Grade | Score | critical | warning | 한 줄 요약 |
 |------|-------|-------|----------|---------|-----------|
 | design-ux-nielsen-review | - | - | - | - | - |
-| design-ux-ixdf-review | - | - | - | - | - |
 | design-ux-lawsofux-review | - | - | - | - | - |
 
 ### L2 Structure UX (2개)
@@ -373,10 +389,11 @@ L5 critical > L2 Dark Pattern > L1 critical > L0 critical 순으로 상위 5개:
 ## 인자
 
 ```
-/design-review-essential <Figma URL | .pen path> [--skip <skill1,skill2,...>] [--only <skill1,skill2,...>] [--goal "{task goal}"] [--lens A,B,C,...]
+/design-review-essential <입력1> [<입력2> ...] [--skip <skill1,skill2,...>] [--only <skill1,skill2,...>] [--goal "{task goal}"] [--lens A,B,C,...]
 ```
 
-- 위치 인자 1개 필수
+- **위치 인자 1개 이상** (여러 Figma URL / .pen 경로를 공백으로 구분 → **순차 처리**, Step 1.5)
+- 옵션은 모든 입력에 공통 적용
 - `--skip`: 제외할 스킬 (콤마 구분)
 - `--only`: 실행할 스킬만 (콤마 구분, `--skip` 보다 우선)
 - `--goal`: `design-ux-flow-review` 에 전달
@@ -389,7 +406,7 @@ L5 critical > L2 Dark Pattern > L1 critical > L0 critical 순으로 상위 5개:
 ```
 /design-review-essential ~/Desktop/projects/design/stat-front.pen
 ```
-→ Pencil MCP 체크 → 현재 선택 프레임 감지 → 14개 스킬 병렬 dispatch → 14개 + 1개 집계 보고서 생성 → 5개 sub-score 출력
+→ Pencil MCP 체크 → 현재 선택 프레임 감지 → 12개 스킬 병렬 dispatch → 12개 + 1개 집계 보고서 생성 → 5개 sub-score 출력
 
 ### 예시 2 — multi-frame flow (AG Grid 대시보드 → 드릴다운)
 
@@ -410,7 +427,7 @@ L5 critical > L2 Dark Pattern > L1 critical > L0 critical 순으로 상위 5개:
 ```
 /design-review-essential https://www.figma.com/design/abc/StatFront?node-id=123-456
 ```
-→ Figma MCP 체크 → 14개 스킬 병렬 dispatch → 집계 보고서
+→ Figma MCP 체크 → 12개 스킬 병렬 dispatch → 집계 보고서
 
 ### 예시 5 — Tufte 제외 (AG Grid 없는 폼 페이지)
 
@@ -418,6 +435,13 @@ L5 critical > L2 Dark Pattern > L1 critical > L0 critical 순으로 상위 5개:
 /design-review-essential ~/stat-front.pen --skip design-ui-tufte-dataviz-review --goal "상품 등록 폼"
 ```
 → 13개 실행 (Tufte 제외) → 폼 특화 sub-score 출력
+
+### 예시 6 — 여러 페이지 순차 리뷰 (다중 입력)
+
+```
+/design-review-essential https://www.figma.com/design/abc/App?node-id=1-2 https://www.figma.com/design/abc/App?node-id=3-4
+```
+→ `[1/2]` 첫 URL 12개 리뷰 완료 → 30s 쿨다운 → `[2/2]` 둘째 URL → 입력별 집계 2개 + 마스터 인덱스 1개. 입력 간 **순차** (rate limit 방지)
 
 ## 출력 규약
 
@@ -430,7 +454,7 @@ L5 critical > L2 Dark Pattern > L1 critical > L0 critical 순으로 상위 5개:
 
 ## annotate-design 호환성
 
-본 스킬은 14개 개별 .md + 1개 집계 .md 를 생성. 개별 .md 는 해당 하위 스킬의 finding 포맷을 그대로 따르므로 `annotate-design` 으로 처리 가능. 집계 .md 는 dedupe 된 통합 finding 을 포함하지만 annotate-design 파싱 범위 밖 — 의사결정/우선순위용.
+본 스킬은 12개 개별 .md + 1개 집계 .md 를 생성. 개별 .md 는 해당 하위 스킬의 finding 포맷을 그대로 따르므로 `annotate-design` 으로 처리 가능. 집계 .md 는 dedupe 된 통합 finding 을 포함하지만 annotate-design 파싱 범위 밖 — 의사결정/우선순위용.
 
 권장 워크플로:
 ```

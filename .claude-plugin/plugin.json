@@ -1,6 +1,6 @@
 {
   "name": "claude-design-skills",
-  "description": "디자인 정적 분석 리뷰 24종 (L0 UI 10 / L1 UX 6 / L2 UX 6 / L5 Strategy 2 — Toss 「Apps in Toss」 가이드 10룰 포함) + L0~L5 멀티 레벨 wrapper 2종 (design-review-all 24개 풀 + design-review-essential 14개 검증 핵심) + Pencil/Figma 어노테이션 1종 (severity 3컬럼 코멘트 패널 + SourceRail chip + After 시각 mockup). 한국어 마크다운 리뷰 + 통합 dedupe 집계 + 캔버스 자동 부착.",
+  "description": "디자인 정적 분석 리뷰 24종 (L0 UI 10 / L1 UX 6 / L2 UX 6 / L5 Strategy 2 — Toss 「Apps in Toss」 가이드 10룰 포함) + L0~L5 멀티 레벨 wrapper 2종 (design-review-all 23개 풀 + design-review-essential 12개 검증 핵심) + Pencil/Figma 어노테이션 1종 (severity 3컬럼 코멘트 패널 + SourceRail chip + After 시각 mockup). 한국어 마크다운 리뷰 + 통합 dedupe 집계 + 캔버스 자동 부착.",
   "version": "2.0.2",
   "author": {
     "name": "jaehoonkim-x"
